@@ -1,75 +1,69 @@
 <template>
   <v-app app :style="{ background: $vuetify.theme.themes[theme].background }">
-    <v-row class="ma-10" fill-height align="center" justify="center">
-      <v-card
-        min-width="400px"
-        class="mx-auto rounded-lg"
-        hover
-        :loading="loading"
-      >
-        <v-toolbar color="white" flat>
-          <v-spacer />
-          <v-toolbar-title
-            class="text-center display-1 font-weight-black"
-            style="font-family: Comfortaa,sans-serif; font-Weight:300"
-            ><b>For Participant</b></v-toolbar-title
-          >
-          <v-spacer />
-        </v-toolbar>
+    <v-row align="center" justify="center">
+      <v-col class="px-5" cols="12" md="5" sm="12">
+        <v-card class="rounded-lg " hover :loading="loading">
 
-        <v-card-text>
-          <v-form>
-            <v-text-field
-              outlined
-              flat
-              label="Username"
-              placeholder="Username"
-              persistent-hint
-              hint="Username"
-              name="username"
-              v-model="username"
-              :rules="usernameRules"
-              prepend-inner-icon="mdi-account"
-              type="text"
-            />
+          <div class="pt-5 text-h4 text-center">
+            Hai!
+          </div>
+          <p class="text-center px-2">
+            Silakan masuk dan mulai menabung antar bank tanpa biaya hari ini
+          </p>
 
-            <v-text-field
-              :append-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'"
-              prepend-inner-icon="mdi-key"
-              :rules="passRules"
-              :type="show4 ? 'text' : 'password'"
-              name="password"
-              label="Password"
-              outlined
-              v-model="password"
-              @click:append="show4 = !show4"
-            ></v-text-field>
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            class="rounded-lg"
-            block
-            color="primary"
-            :disabled="loading"
-            dark
-            large
-            @click="Login"
-            >Sign In</v-btn
-          >
-          <v-spacer />
-        </v-card-actions>
-        <v-card-actions>
-          <v-btn class="caption" @click="FuncForgetPassowrd()" text
-            >Forget Password?</v-btn
-          >
-          <v-spacer />
-          <v-btn class="caption" @click="FuncRegister()" text
-            >Create New Account</v-btn
-          >
-        </v-card-actions>
-      </v-card>
+          <v-card-text>
+            <v-form>
+              <v-text-field
+                outlined
+                flat
+                label="Email"
+                placeholder="Email"
+                persistent-hint
+                name="Email"
+                v-model="email"
+                :rules="emailRules"
+                prepend-inner-icon="mdi-email"
+                type="text"
+              />
+
+              <v-text-field
+                :append-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'"
+                prepend-inner-icon="mdi-key"
+                :rules="passRules"
+                :type="show4 ? 'text' : 'password'"
+                name="password"
+                label="Password"
+                outlined
+                v-model="password"
+                @click:append="show4 = !show4"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn
+              class="rounded-lg"
+              block
+              color="primary"
+              :disabled="loading"
+              dark
+              large
+              @click="Login"
+              >Sign In</v-btn
+            >
+            <v-spacer />
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn class="caption" @click="FuncForgetPassowrd()" text
+              >Forget Password?</v-btn
+            >
+            <v-spacer />
+            <v-btn class="caption" @click="FuncRegister()" text
+              >Create New Account</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-col>
     </v-row>
   </v-app>
 </template>
@@ -80,7 +74,6 @@ export default {
     // if (app.$cookies.get("mahasiswa") !== undefined) {
     //   return redirect("/biodata");
     // }
-
   },
   name: "login",
   layout: "blank",
@@ -88,24 +81,24 @@ export default {
     return {
       mahasiswa: [
         {
-          username: 201943502024,
+          email: 201943502024,
           password: 201943502024,
           nama: "Sindy Silvya"
         },
 
         {
-          username: 201943502022,
+          email: 201943502022,
           password: 201943502022,
           nama: "Rendi Gunawan"
         },
         {
-          username: 201943501887,
-          password: 201943501887,
+          email: "admin@buahati.com",
+          password: 12345678,
           nama: "NandaRusfikri"
         },
 
         {
-          username: 201943502005,
+          email: 201943502005,
           password: 201943502005,
           nama: "Lani Oktofiyanto"
         }
@@ -113,13 +106,13 @@ export default {
       show4: false,
       loading: false,
 
-      username: null,
+      email: null,
       password: null,
       color: { snackbar: "" },
       snackbar: false,
       message: null,
       response: null,
-      usernameRules: [v => !!v || "username wajib diisi"],
+      emailRules: [v => !!v || "email wajib diisi"],
       passRules: [v => !!v || "Password wajib diisi"]
     };
   },
@@ -129,15 +122,15 @@ export default {
     FuncForgetPassowrd() {
       let snackbar = {
         color: "warning",
-        message: "Password Sama Dengan username",
+        message: "Password Sama Dengan email",
         enabled: true
       };
 
       this.$store.commit("SET_SNACKBAR", snackbar);
     },
     FuncRegister() {
-      console.log("ayams")
-        this.$router.push("/register");
+      console.log("ayams");
+      this.$router.push("/register");
     },
 
     async Login({ commit }) {
@@ -145,7 +138,7 @@ export default {
 
       var exist = null;
       for (let i = 0; i < this.mahasiswa.length; i++) {
-        if (this.mahasiswa[i].username == this.username) {
+        if (this.mahasiswa[i].email == this.email) {
           exist = i;
         }
       }
@@ -153,19 +146,19 @@ export default {
       if (exist == null) {
         let snackbar = {
           color: "error",
-          message: "username tidak ada",
+          message: "email tidak ada",
           enabled: true
         };
 
         this.$store.commit("SET_SNACKBAR", snackbar);
       } else if (
         exist !== null &&
-        this.mahasiswa[exist].username == this.username &&
-        this.mahasiswa[exist].username == this.password
+        this.mahasiswa[exist].email == this.email &&
+        this.mahasiswa[exist].email == this.password
       ) {
         this.$cookies.set("mahasiswa", this.mahasiswa[exist]);
         this.$store.commit("SET_USER", this.mahasiswa[exist]);
-        this.$router.push("/biodata");
+        this.$router.push("/home");
       } else {
         let snackbar = {
           color: "warning",
@@ -187,17 +180,6 @@ export default {
 };
 </script>
 <style scoped>
-#latar {
-  height: 100%;
-  background: rgb(7, 2, 88);
-  background: linear-gradient(
-    59deg,
-    rgba(7, 2, 88, 1) 0%,
-    rgba(9, 171, 139, 1) 48%,
-    rgba(7, 2, 88, 1) 100%
-  );
-}
-
 .rounded-card {
   border-radius: 18px;
 }

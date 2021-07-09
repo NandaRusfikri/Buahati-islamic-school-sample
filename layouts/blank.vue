@@ -1,5 +1,14 @@
 <template>
   <v-app app>
+    <v-app-bar color="white" flat>
+      <v-toolbar-title>Buahati</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn outlined>
+        Daftar
+      </v-btn>
+    </v-app-bar>
 
     <v-main>
       <v-snackbar
@@ -17,7 +26,6 @@
       </v-snackbar>
       <nuxt />
     </v-main>
-    <Footer />
   </v-app>
 </template>
 <script>

@@ -1,6 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  server: {
+    port: 62, // default: 3000
+    host: "0.0.0.0" // default: localhost
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - buahati',
@@ -68,13 +72,13 @@ export default {
           success: colors.green.accent3
         },
         light: {
-          border: "#CFD8DC",
-          textprimary: "#00BFA6",
-          border_order:"#CFD8DC",
-          btnprimary: "#00BFA6",
-          background: "#00BFA61A",
-          primary: "#00BFA6",
-          accent: colors.grey.darken3,
+          border: "#E3E3E3",
+          textprimary: "#53CC9D",
+          border_order:"#E3E3E3",
+          btnprimary: "#53CC9D",
+          background: "#74E39A20",
+          primary: "#53CC9D",
+          accent: "#E3E3E3",
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
